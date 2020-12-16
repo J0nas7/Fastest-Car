@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Fastest Car</title>
+</head>
+<body>
+    <h2>Update the Car</h2>
+    <br/><br/>
+    <a href="/">&raquo; Go back to the frontpage</a>
+    <br/><br/>
+    <form action="" method="post">
+        <p><input name="Model" type="text" width="60" value="{{ carData[1] }}" />&nbsp;Car Model</p>
+        <p><input name="MaxSpeed" type="text" width="60" value="{{ carData[2] }}" />&nbsp;MaxSpeed</p>
+        <p><input name="Update" value="Save changes" type="submit" /></p>
+        <p>{{ returnMsg }}</p>
+    </form>
+</body>
+</html>

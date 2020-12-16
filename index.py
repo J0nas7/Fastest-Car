@@ -34,12 +34,55 @@ def showcreatepage() :
                 val = (Model, MaxSpeed)
                 DB.cursor.execute(sql, val)
                 DB.connection.commit()
-                returnMsg = "Car succesfully added :)"
+                return redirect("/create?r=s")
             except Exception as ex :
                 print(ex)
-                returnMsg = "Error occured adding the car :("
+                return redirect("/create?r=e")
+
+    if request.args.get("r"):
+        Response = request.args.get("r")
+        if Response == "s":
+            returnMsg = "Car succesfully added :)"
+        elif Response == "e":
+            returnMsg = "Error occured adding the car :("
 
     return render_template("create.html", returnMsg = returnMsg)
+
+@app.route('/update', methods=['GET','POST'])
+def showupdatepage() :
+    carData = None
+    returnMsg = ""
+    Car_ID = 0
+    
+    if request.args.get("cid"):
+        Car_ID = request.args.get("cid")
+        DB.cursor.execute("SELECT * FROM Py_Cars WHERE Car_ID='"+Car_ID+"' LIMIT 1")
+        carData = DB.cursor.fetchone()
+    else:
+        returnMsg = "You need to provide a Car ID"
+
+    if request.method == 'POST' :
+        if request.form['Update'] == "Save changes" :
+            try :
+                Model = request.form['Model']
+                MaxSpeed = request.form['MaxSpeed']
+                sql = "UPDATE Py_Cars SET Car_Model=%s, Car_MaxSpeed=%s WHERE Car_ID=%s"
+                val = (Model, MaxSpeed, Car_ID)
+                DB.cursor.execute(sql, val)
+                DB.connection.commit()
+                return redirect("/update?cid="+Car_ID+"&r=s")
+            except Exception as ex :
+                print(ex)
+                return redirect("/update?cid="+Car_ID+"&r=e")
+
+    if request.args.get("r"):
+        Response = request.args.get("r")
+        if Response == "s":
+            returnMsg = "Changes are saved :)"
+        elif Response == "e":
+            returnMsg = "Error occured saving the changes :("
+
+    return render_template("update.html", carData = carData, returnMsg = returnMsg)
 
 def deleteCar(Car_ID) :
     print("DELETE CAR "+Car_ID)

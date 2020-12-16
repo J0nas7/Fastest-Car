@@ -23,7 +23,7 @@
                 <tr>
                     <td>{{ row[0] }}</td>
                     <td>{{ row[1] }}</td>
-                    <td>{{ row[2] }}</td>
+                    <td>{{ row[2] }}km/t</td>
                     <td>
                         <form action="" method="post">
                             <input type="submit" name="Delete" value="Delete car" style="{{ 'display: none;' if deletecar == row[0] }}" />
@@ -35,6 +35,7 @@
                                 &nbsp; <a href="/">No, go back</a>
                             </span>
                         </form>
+                        <input type="button" value="Update car" onclick="window.location.href = '/update?cid={{ row[0] }}'"/>
                     </td>
                 </tr>
             {% endfor %}
