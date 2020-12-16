@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Fastest Car</title>
+</head>
+<body>
+    <h2>Fastest Car Overview</h2>
+    <br/><br/>
+    <a href="/create">Create New Car</a>
+    <br/><br/>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Model</th>
+                <th>MaxSpeed</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in values %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>
+                        <form action="" method="post">
+                            <input type="submit" name="Delete" value="Delete car" style="{{ 'display: none;' if deletecar == row[0] }}" />
+                            <input type="hidden" name="Car_ID" value="{{ row[0] }}" />
+
+                            <span id="AreYouSure" style="{{ 'display: none;' if deletecar != row[0] }}">
+                                Are you sure?&nbsp;
+                                <input type="submit" name="Delete" value="Yes, delete" />
+                                &nbsp; <a href="/">No, go back</a>
+                            </span>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
